@@ -99,15 +99,15 @@ def serve_forever(host, port):
 def main():
     parser = optparse.OptionParser()
     parser.add_option(
-        '-i', '--host', dest='host', help='Hostname or IP address')
+        '-i', '--host', dest='host', default='0.0.0.0',
+        help='Hostname or IP address. Default is 0.0.0.0'
+        )
 
-    parser.add_option('-p', '--port', dest='port', type='int', help='Port')
+    parser.add_option(
+        '-p', '--port', dest='port', type='int', default=2000,
+        help='Port. Default is 2000')
 
     options, args = parser.parse_args()
-
-    if not (options.host and options.port):
-        parser.print_help()
-        sys.exit(1)
 
     serve_forever(options.host, options.port)
 
