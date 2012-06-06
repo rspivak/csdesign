@@ -22,7 +22,11 @@
 #
 ###############################################################################
 
-"""TCP Concurrent Server, One Child per Client (fork)"""
+"""
+TCP Concurrent Server, One Child per Client (fork).
+
+Multiple server processes to handle any number of clients.
+"""
 
 __author__ = 'Ruslan Spivak <ruslan.spivak@gmail.com>'
 
