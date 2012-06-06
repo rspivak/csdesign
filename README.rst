@@ -1,4 +1,4 @@
-Simple examples of concurrent server design in Python
+Simple Examples of Concurrent Server Design in Python
 -----------------------------------------------------
 
 The `client.py <https://github.com/rspivak/csdesign/blob/master/client.py>`_ can be used with all the servers.
