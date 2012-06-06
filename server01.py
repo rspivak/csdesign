@@ -56,6 +56,8 @@ def handle(sock):
     bytes = int(sock.recv(1024))
     # get our random bytes
     data = os.urandom(bytes)
+
+    print 'Got request to send %d bytes. Sending them all...' % bytes
     # send them all
     sock.sendall(data)
 
