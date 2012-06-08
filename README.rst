@@ -78,3 +78,12 @@ Roadmap
 - Documentation for every example
 
 
+Acknowledgments
+---------------
+
+- The book "Unix Network Programming, Volume 1: The Sockets Networking
+  API (3rd Edition)" by W. Richard Stevens, Bill Fenner, Andrew M. Rudoff
+
+  It's the best book on the subject. I took and use many techniques
+  from that book.
+
