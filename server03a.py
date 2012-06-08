@@ -117,7 +117,7 @@ def _cleanup(signum, frame):
 
 
 def create_array(childnum):
-    """Creates anonymous memory mapped file of size `numchild`"""
+    """Creates anonymous memory mapped file of the size `childnum`"""
     map = mmap.mmap(-1, childnum) # anonymous mapped file, numchild bytes
     map.seek(0)
     array = bytearray(childnum) # array of zero bytes
