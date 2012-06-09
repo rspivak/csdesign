@@ -62,6 +62,20 @@ The `client.py <https://github.com/rspivak/csdesign/blob/master/client.py>`_ can
      child 9 : 133 times
 
 
+Miscellanea
+-----------
+
+RST Packet Generation
+~~~~~~~~~~~~~~~~~~~~~
+
+The iterative server rstserver.py binds to *localhost*, port *2000* and
+serves incoming requests. After accepting a new connection it
+immediately sends an RST packet over that connection. To generate an
+RST packet it uses SO_LINGER socket option.
+
+`rstserver.py <https://github.com/rspivak/csdesign/blob/master/rstserver.py>`_
+
+
 Roadmap
 -------
 
@@ -76,8 +90,6 @@ Roadmap
 - TCP Prethreaded Server
 
 - Documentation for every example
-
-- Miscellanea, RST packet generation
 
 - Miscellanea, SIGPIPE
 
