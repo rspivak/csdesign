@@ -77,6 +77,9 @@ Roadmap
 
 - Documentation for every example
 
+- Miscellanea, RST packet generation
+
+- Miscellanea, SIGPIPE
 
 Acknowledgments
 ---------------
