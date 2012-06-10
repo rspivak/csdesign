@@ -76,6 +76,35 @@ RST packet it uses SO_LINGER socket option.
 `rstserver.py <https://github.com/rspivak/csdesign/blob/master/rstserver.py>`_
 
 
+The Nature of SIGPIPE
+~~~~~~~~~~~~~~~~~~~~~
+
+At some point when writing to a socket you might get an exception
+*"socket.error: [Errno 32] Broken pipe"*.
+
+The rule is that when a process tries to write to a socket that has
+already received an RST packet, the SIGPIPE signal is sent to that
+process which causes the exception.
+
+The code in *sigpipe.py* shows how to simulate *SIGPIPE*.
+
+`sigpipe.py <https://github.com/rspivak/csdesign/blob/master/sigpipe.py>`_
+
+First you need to start `rstserver.py <https://github.com/rspivak/csdesign/blob/master/rstserver.py>`_
+
+Then run *sigpipe.py* which in turn connects to the *rstserver*, gets
+an RST as a response, ignores it and tries to write to the socket:
+
+::
+
+    $ python sigpipe.py
+    [Errno 104] Connection reset by peer
+
+    Traceback (most recent call last):
+      File "sigpipe.py", line 43, in <module>
+        s.send('hello')
+    socket.error: [Errno 32] Broken pipe
+
 Roadmap
 -------
 
@@ -90,8 +119,6 @@ Roadmap
 - TCP Prethreaded Server
 
 - Documentation for every example
-
-- Miscellanea, SIGPIPE
 
 Acknowledgments
 ---------------
