@@ -78,6 +78,7 @@ def create_child(index, listen_sock):
     if pid > 0: # parent
         return pid
 
+    print 'Child started with PID: %s' % os.getpid()
     # child never returns
     child_loop(index, listen_sock)
 
