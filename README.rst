@@ -61,6 +61,18 @@ The `client.py <https://github.com/rspivak/csdesign/blob/master/client.py>`_ can
      child 8 : 181 times
      child 9 : 133 times
 
+4. TCP Preforked Server, Passing Descriptor to Child
+
+   To avoid the `Thundering herd problem <http://en.wikipedia.org/wiki/Thundering_herd_problem>`_
+   described in the "TCP Preforked Server, Children Call 'accept'"
+   section we can make our parent process to handle *'accept'* and
+   pass a connected socket to one of its preforked children for
+   further handling.
+
+   This example requires **Python 3.3.x** to run. Tested on Linux with
+   Python 3.3.a4.
+
+   `server04.py <https://github.com/rspivak/csdesign/blob/master/server04.py>`_
 
 Miscellanea
 -----------
@@ -113,8 +125,6 @@ Roadmap
 - TCP Concurrent Server, I/O Multiplexing (poll)
 
 - TCP Concurrent Server, I/O Multiplexing (epoll)
-
-- TCP Preforked Server, Passing Descriptor to Child
 
 - TCP Prethreaded Server
 
