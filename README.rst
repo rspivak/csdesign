@@ -128,6 +128,8 @@ Roadmap
 
 - TCP Prethreaded Server
 
+- Miscellanea, SELF-PIPE Trick
+
 - Documentation for every example
 
 Acknowledgments
