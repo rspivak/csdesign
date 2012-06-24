@@ -130,6 +130,10 @@ Roadmap
 
 - Miscellanea, SELF-PIPE Trick
 
+- Miscellanea, **sendfile** system call
+
+- Miscellanea, TCP_CORK socket option
+
 - Documentation for every example
 
 Acknowledgments
