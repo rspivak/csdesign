@@ -228,6 +228,11 @@ The following steps describe how to implement it:
    execute any actions that have to be done in response to the signal
    delivery.
 
+Start the
+`selfpipe.py <https://github.com/rspivak/csdesign/blob/master/selfpipe.py>`_
+and send a *USR1* signal to it. You should see it output a message
+*Got signal* and exit.
+
 
 Roadmap
 -------
