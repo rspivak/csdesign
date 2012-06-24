@@ -200,7 +200,7 @@ will be interrupted and the program will terminate with a message:
     Wake up and block in "select"
     Got signal
 
-*Self-Pipe Trick* is used to avoid race conditions when waiting for
+`Self-Pipe Trick <http://cr.yp.to/docs/selfpipe.html>`_ is used to avoid race conditions when waiting for
 signals and calling *select* on a set of descriptors.
 
 XXX: Code
