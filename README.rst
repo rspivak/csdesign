@@ -117,6 +117,95 @@ an RST as a response, ignores it and tries to write to the socket:
         s.send('hello')
     socket.error: [Errno 32] Broken pipe
 
+
+SELF-PIPE Trick
+~~~~~~~~~~~~~~~
+
+If a process needs to monitor several descriptors for I/O and wait
+for the delivery of a signal then a race condition can happen.
+
+Consider the following code excerpt:
+
+::
+
+    GOT_SIGNAL = False
+
+    def handler(signum, frame):
+        global GOT_SIGNAL
+        GOT_SIGNAL = True
+
+    ...
+
+    signal.signal(signal.SIGUSR1, handler)
+
+    # What if the signal arrives at this point?
+
+    try:
+        readables, writables, exceptions = select.select(rlist, wlist, elist)
+    except select.error as e:
+        code, msg = e.args
+        if code == errno.EINTR:
+            if GOT_SIGNAL:
+                print 'Got signal'
+        else:
+            raise
+
+The problem here is that if the *SIGUSR1* is delivered after setting
+the signal handler but before call to *select* then the *select*
+call **will block** and we won't execute our application logic in
+response to the event thus effectively *"missing"* the signal (our
+application logic in this case is printing the message: *Got signal*).
+
+That's an example of possible nasty racing. Let's simulate that with `selsigrace.py <https://github.com/rspivak/csdesign/blob/master/selsigrace.py>`_
+
+Start the program
+
+::
+
+    $ python selsigrace.py
+    PID: 32324
+    Sleep for 10 secs
+
+and send the *USR1* signal to the PID(it's different on every run)
+within the 10 second interval while the process is still sleeping:
+
+::
+
+    $ kill -USR1 32324
+
+
+You should see the program produce additional line of output
+'Wake up and block in "select"' and **block without exiting**, no
+message "Got signal":
+
+::
+
+    $ python selsigrace.py
+    PID: 32324
+    Sleep for 10 secs
+    Wake up and block in "select"
+
+If you send yet another *USR1* signal at this point then the *select*
+will be interrupted and the program will terminate with a message:
+
+::
+
+    $ kill -USR1 32324
+
+::
+
+    $ python selsigrace.py
+    PID: 32324
+    Sleep for 10 secs
+    Wake up and block in "select"
+    Got signal
+
+*Self-Pipe Trick* is used to avoid race conditions when waiting for
+signals and calling *select* on a set of descriptors.
+
+XXX: Code
+
+
 Roadmap
 -------
 
@@ -127,8 +216,6 @@ Roadmap
 - TCP Concurrent Server, I/O Multiplexing (epoll)
 
 - TCP Prethreaded Server
-
-- Miscellanea, SELF-PIPE Trick
 
 - Miscellanea, **sendfile** system call
 
