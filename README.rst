@@ -200,10 +200,33 @@ will be interrupted and the program will terminate with a message:
     Wake up and block in "select"
     Got signal
 
-`Self-Pipe Trick <http://cr.yp.to/docs/selfpipe.html>`_ is used to avoid race conditions when waiting for
-signals and calling *select* on a set of descriptors.
+`Self-Pipe Trick <http://cr.yp.to/docs/selfpipe.html>`_ is used to
+avoid race conditions when waiting for signals and calling *select* on
+a set of descriptors.
 
-XXX: Code
+
+The following steps describe how to implement it:
+
+1. Create a pipe and change its read and write ends to be nonblocking
+
+2. Add the read end of the pipe to the read list of descriptors given
+   to *select*
+
+3. Install a signal handler for the signal we're concerned with.
+   When the signal arrives the signal handler writes a byte of data to
+   the pipe.
+
+   Because the write end of the pipe is nonblocking we prevent the
+   situation when signals flood the process, the pipe becomes full and
+   the process blocks itself in the signal handler.
+
+4. When *select* successfully returns check if the read end of the
+   pipe is in the *readables* list and if it is then our signal has
+   arrived.
+
+5. When the signal arrives read **all** bytes that are in the pipe and
+   execute any actions that have to be done in response to the signal
+   delivery.
 
 
 Roadmap
