@@ -234,6 +234,10 @@ and send a *USR1* signal to it. You should see it output a message
 *Got signal* and exit.
 
 
+Alternatives: **pselect** (not in Python standard library),
+**signalfd** (Linux only, not in Python standard library)
+
+
 Roadmap
 -------
 
