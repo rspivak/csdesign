@@ -267,7 +267,7 @@ The reason is that *read* and *write* system calls involve copying
 data from kernel space to user space and vice versa and all that
 happens in a loop:
 
-.. image:: csdesign/sendfile1.jpg
+.. image:: csdesign/raw/master/sendfile1.jpg
 
 
 That's where `sendfile <http://www.kernel.org/doc/man-pages/online/pages/man2/sendfile.2.html>`_
@@ -275,7 +275,7 @@ system call comes in handy. It provides a nice optimization for this
 particular use case by doing all the copying from the file descriptor
 to the socket descriptor completely in the kernel space:
 
-.. image:: csdesign/sendfile2.jpg
+.. image:: csdesign/raw/master/sendfile2.jpg
 
 Python 3.3 provides `os.sendfile <http://docs.python.org/dev/library/os.html#os.sendfile>`_
 as part of the standard library.
