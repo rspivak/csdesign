@@ -305,3 +305,8 @@ Acknowledgments
   It's the best book on the subject. I took and use many techniques
   from that book.
 
+- "The Linux Programming Interface: A Linux and UNIX System Programming
+  Handbook" by Michael Kerrisk
+
+  Also the best book on the subject.
+
