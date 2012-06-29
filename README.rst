@@ -238,6 +238,49 @@ Alternatives: **pselect** (not in Python standard library),
 **signalfd** (Linux only, not in Python standard library)
 
 
+Need for Speed - SENDFILE System Call
+-------------------------------------
+
+A very common operation of Web servers these days is transferring
+files to clients. They do that by reading the files' contents from a
+disk and writing it back to the clients' sockets.
+
+The copying of the file on Linux/UNIX, for example, could be done in a
+loop using *read/write* system calls:
+
+::
+
+    import os
+    ...
+    while True:
+        data = os.read(filefd, 4096)
+        if not data:
+            break
+        os.write(socketfd, data)
+
+
+On the surface this looks perfectly fine, but for transferring large
+files, when pre-processing of the file contents isn't necessary,
+this is pretty inefficient.
+
+The reason is that *read* and *write* system calls involve copying
+data from kernel space to user space and vice versa and all that
+happens in a loop:
+
+.. image:: sendfile1.jpg
+
+
+That's where `sendfile <http://www.kernel.org/doc/man-pages/online/pages/man2/sendfile.2.html>`_
+system call comes in handy. It provides a nice optimization for this
+particular use case by doing all the copying from the file descriptor
+to the socket descriptor completely in the kernel space:
+
+.. image:: sendfile2.jpg
+
+Python 3.3 provides `os.sendfile <http://docs.python.org/dev/library/os.html#os.sendfile>`_
+as part of the standard library.
+
+
 Roadmap
 -------
 
@@ -248,8 +291,6 @@ Roadmap
 - TCP Concurrent Server, I/O Multiplexing (epoll)
 
 - TCP Prethreaded Server
-
-- Miscellanea, **sendfile** system call
 
 - Miscellanea, TCP_CORK socket option
 
