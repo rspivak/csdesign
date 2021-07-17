@@ -85,7 +85,7 @@ def child_loop(index, parent_pipe):
         # block waiting for a descriptor from the parent
         fd = read_fd(parent_pipe)
 
-        # create a socket object from the desriptor passed by the parent.
+        # create a socket object from the descriptor passed by the parent.
         # this socket represents connection to a client
         conn = socket.fromfd(fd, socket.AF_INET, socket.SOCK_STREAM)
 

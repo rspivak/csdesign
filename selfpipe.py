@@ -24,7 +24,7 @@
 
 """
 Demonstrates SELF-PIPE Trick that is used to
-avoid race condtions when waiting for signals and calling select() on
+avoid race conditions when waiting for signals and calling select() on
 a set of descriptors.
 """
 
@@ -76,7 +76,7 @@ def main():
     # the call to 'select' - but we're ready for it, bring it on!
 
     # call 'select' in loop - this way we determine the signal arrival
-    # through examinination of the read end of the pipe (RD descriptor)
+    # through examination of the read end of the pipe (RD descriptor)
     while True:
         try:
             readables, writables, exceptions = select.select(
