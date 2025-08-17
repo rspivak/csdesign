@@ -34,10 +34,10 @@ s.connect(('', 2000))
 try:
     s.recv(1024)
 except socket.error as e:
-    print e
-    print
+    print(e)
+    print()
 
 # write after getting the RST causes SIGPIPE signal
 # to be sent to this process which causes a socket.error
 # exception
-s.send('hello')
+s.send('hello'.encode('utf-8'))
