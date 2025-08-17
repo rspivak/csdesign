@@ -23,7 +23,7 @@ The test client works with all servers:
 |---------|-----------|-------|
 | [server01.py](./server01.py) | One child per client (`fork`) | Simple, but resource-heavy with many clients |
 | [server02.py](./server02.py) | I/O multiplexing (`select`) | Efficient single-process model |
-| [server03.py](./server03.py) | Preforked, children call `accept` | Demonstrates the **Thundering Herd** problem — multiple children wake on the same listening socket, but only one accepts. [Details →](./misc/thundering-herd.md) |
+| [server03.py](./server03.py) | Preforked, children call `accept` | Demonstrates the **Thundering Herd** problem — multiple children wake on the same listening socket, but only one accepts. [Details](./misc/thundering-herd.md) |
 | [server03a.py](./server03a.py) | Preforked, connection distribution demo | Shows how Linux distributes connections |
 | [server04.py](./server04.py) | Parent accepts, passes socket to child | Avoids the **Thundering Herd** problem by handling `accept` in the parent and passing the connected socket to a child. |
 
