@@ -50,7 +50,7 @@ def serve_forever(host, port):
     listen_sock.bind((host, port))
     listen_sock.listen(BACKLOG)
 
-    print 'Listening on port %d ...' % port
+    print('Listening on port %d ...' % port)
 
     # iterative server
     while True:
@@ -65,7 +65,7 @@ def serve_forever(host, port):
                 raise
 
         # generate RST and off to accept another request
-        print 'Sending RST to %s' % str(client_address)
+        print('Sending RST to %s' % str(client_address))
         generate_rst(conn)
 
 
