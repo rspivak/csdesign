@@ -51,7 +51,7 @@ def serve_forever(host, port):
     lstsock.bind((host, port))
     lstsock.listen(BACKLOG)
 
-    print 'Listening on port %d ...' % port
+    print('Listening on port %d ...' % port)
 
     # read, write, exception lists with sockets to poll
     rlist, wlist, elist = [lstsock], [], []

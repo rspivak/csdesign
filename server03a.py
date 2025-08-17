@@ -48,7 +48,7 @@ def handle(sock):
     # get our random bytes
     data = os.urandom(bytes)
 
-    print 'Got request to send %d bytes. Sending them all...' % bytes
+    print('Got request to send %d bytes. Sending them all...' % bytes)
     # send them all
     sock.sendall(data)
 
@@ -81,7 +81,7 @@ def create_child(index, listen_sock):
     if pid > 0: # parent
         return pid
 
-    print 'Child started with PID: %s' % os.getpid()
+    print('Child started with PID: %s' % os.getpid())
     # child never returns
     try:
         child_loop(index, listen_sock)
@@ -122,7 +122,7 @@ def create_array(childnum):
     map = mmap.mmap(-1, childnum) # anonymous mapped file, numchild bytes
     map.seek(0)
     array = bytearray(childnum) # array of zero bytes
-    map.write(str(array))
+    map.write(array)
     return map
 
 
@@ -132,16 +132,16 @@ def inc_counter(index):
     array = bytearray(map.read(1024)) # stats for max 1024 preforked children
     array[index] += 1
     map.seek(0)
-    map.write(str(array))
+    map.write(array)
 
 def print_stats():
     map = MAP
     map.seek(0)
     array = bytearray(map.read(len(PIDS)))
-    print
+    print()
     for index, val in enumerate(array):
-        print 'child %-2s: %d times' % (index, val)
-    print
+        print('child %-2s: %d times' % (index, val))
+    print()
 
 
 def serve_forever(host, port, childnum):
@@ -153,7 +153,7 @@ def serve_forever(host, port, childnum):
     listen_sock.bind((host, port))
     listen_sock.listen(BACKLOG)
 
-    print 'Listening on port %d ...' % port
+    print('Listening on port %d ...' % port)
 
     global MAP
     MAP = create_array(childnum)

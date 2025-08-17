@@ -61,7 +61,7 @@ def handle(sock):
     # get our random bytes
     data = os.urandom(bytes)
 
-    print 'Got request to send %d bytes. Sending them all...' % bytes
+    print('Got request to send %d bytes. Sending them all...' % bytes)
     # send them all
     sock.sendall(data)
 
@@ -78,7 +78,7 @@ def serve_forever(host, port):
     sock.bind((host, port))
     sock.listen(BACKLOG)
 
-    print 'Listening on port %d ...' % port
+    print('Listening on port %d ...' % port)
 
     # spawn a new child process for every request
     while True:

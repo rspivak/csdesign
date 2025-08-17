@@ -49,7 +49,7 @@ def handle(sock):
     # get our random bytes
     data = os.urandom(bytes)
 
-    print 'Got request to send %d bytes. Sending them all...' % bytes
+    print('Got request to send %d bytes. Sending them all...' % bytes)
     # send them all
     sock.sendall(data)
 
@@ -78,7 +78,7 @@ def create_child(index, listen_sock):
     if pid > 0: # parent
         return pid
 
-    print 'Child started with PID: %s' % os.getpid()
+    print('Child started with PID: %s' % os.getpid())
     # child never returns
     child_loop(index, listen_sock)
 
@@ -117,7 +117,7 @@ def serve_forever(host, port, childnum):
     listen_sock.bind((host, port))
     listen_sock.listen(BACKLOG)
 
-    print 'Listening on port %d ...' % port
+    print('Listening on port %d ...' % port)
 
     # prefork children
     global PIDS

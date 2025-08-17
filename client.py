@@ -41,7 +41,7 @@ def request(host, port, child_num, con_num, bytes):
             for i in range(con_num):
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sock.connect((host, port))
-                sock.sendall(str(bytes))
+                sock.sendall(str(bytes).encode('utf-8'))
 
                 data = sock.recv(bytes)
                 if len(data) != bytes:
@@ -49,7 +49,7 @@ def request(host, port, child_num, con_num, bytes):
 
                 sock.close() # TIME_WAIT state on the client
 
-            print 'Child %d is done' % cnum
+            print('Child %d is done' % cnum)
             os._exit(0)
 
     # wait for all children to finish
