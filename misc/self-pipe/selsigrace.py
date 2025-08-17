@@ -46,16 +46,16 @@ def handler(signum, frame):
 
 
 def main():
-    print 'PID: %s' % os.getpid()
+    print('PID: %s' % os.getpid())
 
     signal.signal(signal.SIGUSR1, handler)
 
     # read, write, exception lists with descriptors to poll
     rlist, wlist, elist = [sys.stdin.fileno()], [], []
 
-    print 'Sleep for 10 secs'
+    print('Sleep for 10 secs')
     time.sleep(10)
-    print 'Wake up and block in "select"'
+    print('Wake up and block in "select"')
 
     #
     # Nasty racing can happen at this point if the signal arrives before
@@ -70,7 +70,7 @@ def main():
         code, msg = e.args
         if code == errno.EINTR:
             if GOT_SIGNAL:
-                print 'Got signal'
+                print('Got signal')
         else:
             raise
 

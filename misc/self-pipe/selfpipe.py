@@ -44,15 +44,15 @@ RD, WD = None, None
 
 def handler(signum, frame):
     try:
-        os.write(WD, 'x')
+        os.write(WD, 'x'.encode('ascii'))
     except OSError as e:
         if e.errno != errno.EAGAIN:
-            print 'Signal handler write error'
+            print('Signal handler write error')
             os._exit(1)
 
 
 def main():
-    print 'PID: %s' % os.getpid()
+    print('PID: %s' % os.getpid())
 
     # 1. Create a pipe and make both ends nonblocking
     global RD, WD
@@ -94,7 +94,7 @@ def main():
 
     # 4. Check if our pipe's read end descriptor is in the result set
     if RD in readables:
-        print 'Got signal'
+        print('Got signal')
         # 5. Read all the bytes, because multiple
         # signal may have arrived
         while True:
@@ -107,7 +107,7 @@ def main():
                 else:
                     raise
     else:
-        print 'Something unexpected happened'
+        print('Something unexpected happened')
 
 
 if __name__ == '__main__':
